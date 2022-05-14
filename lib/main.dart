@@ -34,14 +34,14 @@ class Home extends StatelessWidget {
           ),),*/
       ),
       floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.ellipsis_search,
+        animatedIcon: AnimatedIcons.menu_close,
         children: [
           SpeedDialChild(
             child: Icon(Icons.logout),
             label: 'Log Out',
           ),
           SpeedDialChild(
-            child: Icon(Icons.wallet_giftcard),
+            child: Icon(Icons.wallet_membership),
             label: 'Enter New Points',
           ),
           SpeedDialChild(

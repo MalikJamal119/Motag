@@ -41,7 +41,7 @@ class Home extends StatelessWidget {
             label: 'Log Out',
           ),
           SpeedDialChild(
-            child: Icon(Icons.wallet_giftcard),
+            child: Icon(Icons.wallet_membership),
             label: 'Enter New Points',
           ),
           SpeedDialChild(

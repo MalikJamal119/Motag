@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
           ),),*/
       ),
       floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
+        animatedIcon: AnimatedIcons.ellipsis_search,
         children: [
           SpeedDialChild(
             child: Icon(Icons.logout),

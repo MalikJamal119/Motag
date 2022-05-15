@@ -78,7 +78,9 @@ flutter:
       fonts:
         - asset: fonts/AmaticSC-Bold.ttf
         - asset: fonts/AmaticSC-Regular.ttf
-
+    - family: Macondo
+      fonts:
+        - asset: fonts/Macondo-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

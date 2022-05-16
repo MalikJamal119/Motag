@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:myapp/models/user_model.dart';
 import 'package:myapp/screens/login_screen.dart';
 
 
@@ -24,7 +27,28 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+
+
+
 class _HomeScreenState extends State<HomeScreen> {
+
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value){
+      loggedInUser = UserModel.fromMap(value.data());
+      setState(()  {});
+      });
+  }
+
   List<CardItem> items = [
     const CardItem(
       urlImage:
@@ -91,10 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Colors.black12,
           height: 120.0,
 
-          child: const Text(
-            'Welcome to Motag! The points generator. Send , receive and scan points '
-                'of the brands you love for lower prices and deals everyone loves!',
-            style: TextStyle(
+          child: Text(
+            "Hello ${loggedInUser.firstName}! Welcome to Motag! The points generator. Send , receive and scan points "
+                "of the brands you love for lower prices and deals everyone loves!",
+            style: const TextStyle(
               fontSize: 20.0,
               fontFamily: 'Macondo',
               fontWeight: FontWeight.bold,
@@ -138,8 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Icon(Icons.logout),
             label: 'Log Out',
             onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
+              logout(context);
               }
 
           ),
@@ -189,5 +212,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
           ],
         ),);
+
+
+  Future<void> logout(BuildContext context) async
+  {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
 }
+
+
 

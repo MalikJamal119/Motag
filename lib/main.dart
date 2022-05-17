@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
     return MaterialApp(
         title: 'Email and password Login',
         theme: ThemeData(
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.lightGreen,
         ),
       home: LoginScreen(),
     );

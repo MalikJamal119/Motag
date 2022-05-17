@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:myapp/models/user_model.dart';
+import 'package:myapp/screens/EnterPoints.dart';
 import 'package:myapp/screens/login_screen.dart';
 
 
@@ -54,42 +56,42 @@ class _HomeScreenState extends State<HomeScreen> {
       urlImage:
       'https://i.pinimg.com/236x/c4/2a/f6/c42af62037e3d7cd9961d38e7212a453.jpg',
       title: 'Zara',
-      subtitle: 'QR',
+      subtitle: 'Fashion ',
 
     ),
     const CardItem(
       urlImage:
       'https://www.secrettelaviv.com/wp-content/uploads/2019/05/77996_27657372_967581220074055_6490517124524720240_n.jpg',
       title: 'Golda',
-      subtitle: 'QR',
+      subtitle: 'Sweets ',
 
     ),
     const CardItem(
       urlImage:
       'https://brandslogos.com/wp-content/uploads/images/hm-logo-1.png',
       title: 'H&M',
-      subtitle: 'QR',
+      subtitle: 'Fashion ',
 
     ),
     const CardItem(
       urlImage:
       'https://wallpaper.dog/large/17092517.jpg',
       title: 'Nike',
-      subtitle: 'QR',
+      subtitle: 'Fashion ',
 
     ),
     const CardItem(
       urlImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/TheNorthFace_logo.svg/1200px-TheNorthFace_logo.svg.png',
       title: 'The North Face',
-      subtitle: 'QR',
+      subtitle: 'Fashion',
 
     ),
     const CardItem(
       urlImage:
       'https://shimeba.blob.core.windows.net/shimeba-new-container/53916cb3921a492385d3243770851dc7.JPG',
       title: 'Rebar',
-      subtitle: 'QR',
+      subtitle: 'Healthy cocktails',
 
     ),
 
@@ -150,6 +152,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
           ),),
+        /*Container(
+          padding: ,
+          width: 250 ,
+          color: Colors.lightGreen,
+          child: Text('For Actions , Click on the Menu button on the right bottom corner',
+          style: TextStyle(
+            fontSize: 35,
+            fontFamily: 'AmaticSC'
+          ),),
+        )*/
 
 
       ],
@@ -172,10 +184,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SpeedDialChild(
             onTap: () {
-
-            },
-            child: Icon(Icons.wallet_giftcard),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const EnterPoints()));},
+            child: Icon(Icons.qr_code_scanner),
             label: 'Enter New Points',
+
           ),
           SpeedDialChild(
             child: Icon(Icons.compare_arrows_rounded),

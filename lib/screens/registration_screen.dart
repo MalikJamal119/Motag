@@ -179,6 +179,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           )
       ),
     );
+
     final signUpButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
@@ -232,19 +233,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                           fit: BoxFit.contain,)
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 5),
                     firstNameField,
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
                     secondNameField,
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
                     emailField,
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
                     passwordField,
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
                     confirmPasswordField,
-                    const SizedBox(height: 10),
+
+                    const SizedBox(height: 15),
                     signUpButton,
-                    const SizedBox(height: 15,)
+
 
 
 
@@ -285,10 +287,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // writing all the values
 
     userModel.email = user!.email;
-    userModel.uid = user!.uid;
+    userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.secondName = secondNameEditingController.text;
     userModel.password = passwordEditingController.text;
+
 
 
     await firebaseFirestore

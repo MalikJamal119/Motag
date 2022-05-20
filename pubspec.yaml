@@ -87,6 +87,9 @@ flutter:
     - family: Macondo
       fonts:
         - asset: fonts/Macondo-Regular.ttf
+    - family: NotoSerif
+      fonts:
+        - asset: fonts/NotoSerif-Italic.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

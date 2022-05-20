@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/screens/login_screen.dart';
+import 'package:myapp/screens/my_wallet.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +20,9 @@ class Home extends StatelessWidget {
           primarySwatch: Colors.lightGreen,
         ),
       home: LoginScreen(),
+      routes: {
+          '/MyWallet' :(context) => MyWallet(),
+      },
     );
   }
 }

@@ -291,15 +291,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.firstName = firstNameEditingController.text;
     userModel.secondName = secondNameEditingController.text;
     userModel.password = passwordEditingController.text;
+    userModel.points = 0;
+    userModel.zarapoints = 0;
+    userModel.goldapoints = 0;
+    userModel.rebarpoints = 0;
+    userModel.zaramember = false;
+    userModel.goldamember = false;
+    userModel.rebarmember = false;
 
 
 
-    await firebaseFirestore
-      .collection("users")
-      .doc(user.uid)
-      .set(userModel.toMap());
+
+    await firebaseFirestore.collection("users").doc(user.uid).set(userModel.toMap());
+
     Fluttertoast.showToast(msg: "Signed Up successfully!:)");
-    
+
     Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
 
 

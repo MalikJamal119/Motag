@@ -6,6 +6,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:myapp/models/user_model.dart';
 import 'package:myapp/screens/EnterPoints.dart';
 import 'package:myapp/screens/login_screen.dart';
+import 'package:myapp/screens/my_wallet.dart';
 
 
 class CardItem {
@@ -152,16 +153,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
           ),),
-        /*Container(
-          padding: ,
-          width: 250 ,
-          color: Colors.lightGreen,
-          child: Text('For Actions , Click on the Menu button on the right bottom corner',
-          style: TextStyle(
-            fontSize: 35,
-            fontFamily: 'AmaticSC'
-          ),),
-        )*/
 
 
       ],
@@ -179,20 +170,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
           ),
           SpeedDialChild(
-            child: Icon(Icons.info),
-            label: 'About Us',
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyWallet()));},
+            child: Icon(Icons.card_giftcard_sharp),
+            label: 'My Wallet',
           ),
           SpeedDialChild(
             onTap: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const EnterPoints()));},
+                  MaterialPageRoute(builder: (context) => EnterPoints()));},
             child: Icon(Icons.qr_code_scanner),
             label: 'Enter New Points',
 
           ),
           SpeedDialChild(
-            child: Icon(Icons.compare_arrows_rounded),
+            child: Icon(Icons.cached_sharp),
             label: 'Transfer Points',
           ),
 

@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:lottie/lottie.dart';
 import 'package:myapp/models/user_model.dart';
 import 'package:myapp/screens/EnterPoints.dart';
+import 'package:myapp/screens/TransferPoints.dart';
 import 'package:myapp/screens/login_screen.dart';
 import 'package:myapp/screens/my_wallet.dart';
 
@@ -34,6 +35,7 @@ class HomeScreen extends StatefulWidget {
 
 
 class _HomeScreenState extends State<HomeScreen> {
+
 
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
@@ -106,14 +108,17 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text(
           'Motag',
           style: TextStyle(
+            color: Colors.white,
+
             fontFamily: 'AmaticSC',
-            fontSize: 60,
+            fontSize: 62,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
       ),
       body: Column(children: [
+
         Container(
           color: Colors.black12,
           height: 120.0,
@@ -131,10 +136,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         Container(
+          height: 205,
+
+          color: Colors.black12,
+
+          child:Lottie.asset('assets/welcome.json',reverse: true,fit: BoxFit.fitWidth),
+
+        ),
+        Container(
           height: 70.0,
-          color: Colors.black38,
+          color: Colors.black12,
           child: const Text(
-            'Here are some of the brands that we work with',
+            'Here are some of the brands that we work :',
             style: TextStyle(
               fontSize: 20.0,
               fontFamily: 'Macondo',
@@ -143,16 +156,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        Container(
-          height: 256,
+
+        SizedBox(
+
+          height: 205,
+
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: 6,
-            separatorBuilder: (context, _) => SizedBox(width: 8),
+            separatorBuilder: (context, _) => const SizedBox(width: 8),
             itemBuilder: (context,index) => buildCard(item: items[index]),
 
 
           ),),
+
 
 
       ],
@@ -162,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
         animatedIcon: AnimatedIcons.menu_close,
         children: [
           SpeedDialChild(
-            child: Icon(Icons.logout),
+            child: const Icon(Icons.logout),
             label: 'Log Out',
             onTap: () {
               logout(context);
@@ -174,33 +191,38 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const MyWallet()));},
-            child: Icon(Icons.card_giftcard_sharp),
+            child: const Icon(Icons.card_giftcard_sharp),
             label: 'My Wallet',
           ),
           SpeedDialChild(
             onTap: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EnterPoints()));},
-            child: Icon(Icons.qr_code_scanner),
+                  MaterialPageRoute(builder: (context) => const EnterPoints()));},
+            child: const Icon(Icons.qr_code_scanner),
             label: 'Enter New Points',
 
           ),
           SpeedDialChild(
-            child: Icon(Icons.cached_sharp),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const TransferPoints()));
+
+            },
+            child: const Icon(Icons.cached_sharp),
             label: 'Transfer Points',
           ),
 
         ],
-        child: Icon(Icons.menu),
+        child: const Icon(Icons.menu),
       ),
     );
   }
   Widget buildCard({
     required CardItem item,
   }) =>
-      Container(
+      SizedBox(
         width: 200,
+
 
         child: Column(
           children: [
@@ -209,14 +231,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 item.urlImage,
                 fit: BoxFit.cover,
               ),),
-            const SizedBox(height: 4),
+            const SizedBox(height: 4,),
             Text(
               item.title,
-              style: TextStyle(fontSize: 24),
+              style: const TextStyle(fontSize: 24),
             ),
             Text(
               item.subtitle,
-              style: TextStyle(fontSize: 20, color: Colors.black38),),
+              style: const TextStyle(fontSize: 20, color: Colors.black38),),
 
 
           ],
@@ -226,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> logout(BuildContext context) async
   {
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
 }

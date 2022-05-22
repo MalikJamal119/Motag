@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool isLoading = true;
   //form key
   final _formKey = GlobalKey<FormState>();
   //editing controller
@@ -113,8 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
           signIn(emailController.text, passwordController.text);
         },
         child: Text('Login',textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.bold),),
-    ),
+          style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.bold),),
+      ),
     );
 
 

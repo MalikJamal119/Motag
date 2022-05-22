@@ -209,7 +209,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           onPressed: (){
             // passing this to our root
             Navigator.of(context).pop();
-      },
+          },
         ),
       ),
       body: Center(
@@ -313,7 +313,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   }
 }
-
 
 
 

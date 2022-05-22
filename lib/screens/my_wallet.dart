@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:lottie/lottie.dart';
 import 'package:myapp/models/user_model.dart';
 import 'package:myapp/screens/EnterPoints.dart';
 import 'package:myapp/screens/login_screen.dart';
 import 'package:myapp/screens/home_screen.dart';
+
+import 'TransferPoints.dart';
 
 
 
@@ -38,9 +41,10 @@ class _MyWalletState extends State<MyWallet> {
   @override
   Widget build(BuildContext context) {
     if((loggedInUser.zarapoints != null) && (loggedInUser.goldapoints != null) && ( loggedInUser.goldapoints != null )){
-      loggedInUser.points = loggedInUser.zarapoints! + loggedInUser.rebarpoints! + loggedInUser.goldapoints!;
-      Map<String, dynamic> data = {"points": loggedInUser.points};
-      FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
+      if(true){
+        loggedInUser.points = loggedInUser.zarapoints! +  loggedInUser.rebarpoints! + loggedInUser.goldapoints!;
+        Map<String, dynamic> data = {"points": loggedInUser.points};
+        FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);}
     }
     else{
       loggedInUser.points = loggedInUser.zarapoints! + loggedInUser.rebarpoints! + loggedInUser.goldapoints!;
@@ -56,6 +60,7 @@ class _MyWalletState extends State<MyWallet> {
         title:  Text(
         "${loggedInUser.firstName}'s Wallet",
         style: const TextStyle(
+          color: Colors.white,
         fontFamily: 'AmaticSC',
         fontSize: 60,
         fontWeight: FontWeight.bold,
@@ -122,20 +127,17 @@ class _MyWalletState extends State<MyWallet> {
       ),),
       Container(
         height: 300,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: ExactAssetImage('images/motag.png'),
-          )
-        ),
-      ),
+
+        child:Lottie.asset('assets/scan.json',reverse: true),
 
 
-
+      )
     ],),
       floatingActionButton: SpeedDial(
       backgroundColor: Colors.lightGreen,
       animatedIcon: AnimatedIcons.menu_close,
       children: [
+
         SpeedDialChild(
             child: const Icon(Icons.logout),
             label: 'Log Out',
@@ -144,17 +146,32 @@ class _MyWalletState extends State<MyWallet> {
             }
 
         ),
+        SpeedDialChild(
+            child: const Icon(Icons.home),
+            label: 'Home Screen',
+            onTap: () {
+              Navigator.pushAndRemoveUntil<dynamic>(
+                context,
+                MaterialPageRoute<dynamic>(builder: (BuildContext context) =>const HomeScreen(),), (route) => false,//if you want to disable back feature set to false
+              );
+            }
+
+        ),
 
         SpeedDialChild(
           onTap: () {
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  EnterPoints()));},
+                MaterialPageRoute(builder: (context) =>  const EnterPoints()));},
           child: const Icon(Icons.qr_code_scanner),
           label: 'Enter New Points',
 
         ),
         SpeedDialChild(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const TransferPoints()));
+
+          },
           child: const Icon(Icons.cached_sharp),
           label: 'Transfer Points',
         ),

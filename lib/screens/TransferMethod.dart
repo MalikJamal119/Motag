@@ -5,12 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:lottie/lottie.dart';
-import 'package:myapp/screens/TransferBrand.dart';
-import 'package:myapp/screens/TransferUser.dart';
+import 'package:myapp/screens/BrandTransfer.dart';
+import 'package:myapp/screens/UserTransfer.dart';
 
 import '../models/user_model.dart';
 import 'EnterPoints.dart';
-import 'Transfer.dart';
+import 'TransferMethod.dart';
 import 'home_screen.dart';
 import 'login_screen.dart';
 import 'my_wallet.dart';
@@ -100,6 +100,7 @@ class _TransferState extends State<Transfer> {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(32),
           child: ElevatedButton(
+
             style: ElevatedButton.styleFrom(
               textStyle: const TextStyle(fontSize: 24),
               minimumSize: const Size.fromHeight(72),

@@ -71,32 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     const CardItem(
       urlImage:
-      'https://brandslogos.com/wp-content/uploads/images/hm-logo-1.png',
-      title: 'H&M',
-      subtitle: 'Fashion ',
-
-    ),
-    const CardItem(
-      urlImage:
-      'https://wallpaper.dog/large/17092517.jpg',
-      title: 'Nike',
-      subtitle: 'Fashion ',
-
-    ),
-    const CardItem(
-      urlImage:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/TheNorthFace_logo.svg/1200px-TheNorthFace_logo.svg.png',
-      title: 'The North Face',
-      subtitle: 'Fashion',
-
-    ),
-    const CardItem(
-      urlImage:
       'https://shimeba.blob.core.windows.net/shimeba-new-container/53916cb3921a492385d3243770851dc7.JPG',
       title: 'Rebar',
       subtitle: 'Healthy cocktails',
 
     ),
+
 
   ];
 
@@ -124,13 +104,13 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 120.0,
 
           child: Text(
-            "Hello ${loggedInUser.firstName}! Welcome to Motag! The points generator. Send , receive and scan points "
-                "of the brands you love for lower prices and deals everyone loves!",
+            "Hello ${loggedInUser.firstName}! Welcome to Motag, The points generator.\nSend, receive and scan points "
+                "for lower prices and deals everyone loves!",
             style: const TextStyle(
               fontSize: 20.0,
               fontFamily: 'Macondo',
               fontWeight: FontWeight.bold,
-              letterSpacing: 2.0,
+              letterSpacing: 1.0,
 
             ),
           ),
@@ -140,19 +120,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
           color: Colors.black12,
 
-          child:Lottie.asset('assets/welcome.json',reverse: true,fit: BoxFit.fitWidth),
+          child:Lottie.asset('assets/welcome.json',reverse: true,),
 
         ),
         Container(
-          height: 70.0,
+          height: 40.0,
+          width: 450,
           color: Colors.black12,
           child: const Text(
-            'Here are some of the brands that we work :',
+            'Here are the brands that we work with :',
             style: TextStyle(
               fontSize: 20.0,
-              fontFamily: 'Macondo',
-              fontWeight: FontWeight.bold,
-              letterSpacing: 2.0,
+              fontFamily: 'Acme',
+              fontWeight: FontWeight.w400,
+              letterSpacing: 1.0,
             ),
           ),
         ),
@@ -161,9 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
           height: 205,
 
+
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: 6,
+            itemCount: 3,
             separatorBuilder: (context, _) => const SizedBox(width: 8),
             itemBuilder: (context,index) => buildCard(item: items[index]),
 

@@ -304,7 +304,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     await firebaseFirestore.collection("users").doc(user.uid).set(userModel.toMap());
 
-    Fluttertoast.showToast(msg: "Signed Up successfully!:)");
+    Fluttertoast.showToast(msg: "Signed Up successfully!:)",  backgroundColor: Colors.lightGreen,
+      textColor: Colors.white,
+      fontSize: 14,);
 
     Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
 

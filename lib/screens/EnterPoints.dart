@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +19,7 @@ class EnterPoints extends StatefulWidget {
 class _EnterPointsState extends State<EnterPoints> with SingleTickerProviderStateMixin{
   late AnimationController controller2;
 
-  final _auth = FirebaseAuth.instance;
-  //our form key
-  final _formKey = GlobalKey<FormState>();
+
 
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
@@ -32,12 +28,12 @@ class _EnterPointsState extends State<EnterPoints> with SingleTickerProviderStat
   void initState() {
     super.initState();
     controller2 = AnimationController(
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       vsync: this,
     );
     controller2.addStatusListener((status) async{
       if(status == AnimationStatus.completed){
-        Navigator.pushAndRemoveUntil<dynamic>(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => MyWallet(),), (route) => false,//if you want to disable back feature set to false
+        Navigator.pushAndRemoveUntil<dynamic>(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => const MyWallet(),), (route) => false,//if you want to disable back feature set to false
         );
 
 
@@ -93,8 +89,14 @@ class _EnterPointsState extends State<EnterPoints> with SingleTickerProviderStat
         if (loggedInUser.zarapoints != 0) {
           SchedulerBinding.instance?.addPostFrameCallback((_) {
             loggedInUser.zarapoints = loggedInUser.zarapoints! + 50;
-            Fluttertoast.showToast(msg: "Scanned 50 Zara points! you currently have ${loggedInUser.zarapoints} Zara points!");
-            Map<String, dynamic> data = {"zarapoints": loggedInUser.zarapoints};
+            loggedInUser.points = loggedInUser.points! + 50;
+
+            Fluttertoast.showToast(msg: "Scanned 50 Zara points!\nyou currently have ${loggedInUser.zarapoints} Zara points!",
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: Colors.lightGreen,
+              textColor: Colors.white,
+              fontSize: 14,);
+            Map<String, dynamic> data = {"zarapoints": loggedInUser.zarapoints , "points" : loggedInUser.points};
             FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
             showDoneDialog();
 
@@ -104,22 +106,34 @@ class _EnterPointsState extends State<EnterPoints> with SingleTickerProviderStat
           SchedulerBinding.instance?.addPostFrameCallback((_) {
             var newZaraPoints = 50;
             loggedInUser.zarapoints = newZaraPoints;
-            Fluttertoast.showToast(msg: "Successfully Scanned!! Your First ${loggedInUser.zarapoints} Zara points!");
-            Map<String, dynamic> data = {"zarapoints": newZaraPoints, "zaramember": true};
+            loggedInUser.points = loggedInUser.points! + 50;
+
+            Fluttertoast.showToast(msg: "Successfully Scanned!!\nYour First ${loggedInUser.zarapoints} Zara points!",
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: Colors.lightGreen,
+              textColor: Colors.white,
+              fontSize: 14,);
+            Map<String, dynamic> data = {"zarapoints": newZaraPoints, "zaramember": true, "points" : loggedInUser.points};
             FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
             showDoneDialog();
           });
       }}
       //if result is golda code
-      if (result?.code == '+100 Golda Points!!') {
+      else if (result?.code == '+100 Golda Points!!') {
         player.play('Cash.mp3');
 
 
         if (loggedInUser.goldapoints != 0) {
           SchedulerBinding.instance?.addPostFrameCallback((_) {
             loggedInUser.goldapoints = loggedInUser.goldapoints! + 100;
-            Fluttertoast.showToast(msg: "Scanned 100 Golda points! you currently have ${loggedInUser.goldapoints} Golda points!");
-            Map<String, dynamic> data = {"goldapoints": loggedInUser.goldapoints};
+            loggedInUser.points = loggedInUser.points! + 100;
+
+            Fluttertoast.showToast(msg: "Scanned 100 Golda points!\nyou currently have ${loggedInUser.goldapoints} Golda points!",
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: Colors.lightGreen,
+              textColor: Colors.white,
+              fontSize: 14,);
+            Map<String, dynamic> data = {"goldapoints": loggedInUser.goldapoints, "points" : loggedInUser.points};
             FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
             showDoneDialog();
 
@@ -129,23 +143,35 @@ class _EnterPointsState extends State<EnterPoints> with SingleTickerProviderStat
           SchedulerBinding.instance?.addPostFrameCallback((_) {
             var newGoldaPoints = 100;
             loggedInUser.goldapoints = newGoldaPoints;
-            Fluttertoast.showToast(msg: "Successfully Scanned!! Your First ${loggedInUser.goldapoints} Golda points!");
-            Map<String, dynamic> data = {"goldapoints": newGoldaPoints, "goldamember": true};
+            loggedInUser.points = loggedInUser.points! + 100;
+
+            Fluttertoast.showToast(msg: "Successfully Scanned!!\nYour First ${loggedInUser.goldapoints} Golda points!",
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: Colors.lightGreen,
+              textColor: Colors.white,
+              fontSize: 14,);
+            Map<String, dynamic> data = {"goldapoints": newGoldaPoints, "goldamember": true, "points" : loggedInUser.points};
             FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
             showDoneDialog();
 
           });
         }}
       // if result is rebar code
-      if (result?.code == '+150 Rebar Points!!') {
+      else if (result?.code == '+150 Rebar Points!!') {
         player.play('Cash.mp3');
 
 
         if (loggedInUser.rebarpoints != 0) {
           SchedulerBinding.instance?.addPostFrameCallback((_) {
             loggedInUser.rebarpoints = loggedInUser.rebarpoints! + 150;
-            Fluttertoast.showToast(msg: "Scanned 150 Rebar points! you currently have ${loggedInUser.rebarpoints} Rebar points!");
-            Map<String, dynamic> data = {"rebarpoints": loggedInUser.rebarpoints};
+            loggedInUser.points = loggedInUser.points! + 150;
+
+            Fluttertoast.showToast(msg: "Scanned 150 Rebar points!!\nyou currently have ${loggedInUser.rebarpoints} Rebar points!",
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: Colors.lightGreen,
+              textColor: Colors.white,
+              fontSize: 14,);
+            Map<String, dynamic> data = {"rebarpoints": loggedInUser.rebarpoints,"points" : loggedInUser.points};
             FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
             showDoneDialog();
 
@@ -154,17 +180,27 @@ class _EnterPointsState extends State<EnterPoints> with SingleTickerProviderStat
         else if(loggedInUser.rebarpoints == 0) {
           SchedulerBinding.instance?.addPostFrameCallback((_) {
             var newRebarPoints = 150;
-            loggedInUser.rebarpoints = newRebarPoints;
-            Fluttertoast.showToast(msg: "Successfully Scanned!! Your First ${loggedInUser.rebarpoints} Rebar points!");
-            Map<String, dynamic> data = {"rebarpoints": newRebarPoints, "rebarmember": true};
-            FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
-            showDoneDialog();
+                        loggedInUser.rebarpoints = newRebarPoints;
+                        loggedInUser.points = loggedInUser.points! + 150;
+
+                        Fluttertoast.showToast(msg: "Successfully Scanned\nYour First ${loggedInUser.rebarpoints} Rebar points!",
+                          toastLength: Toast.LENGTH_LONG,
+                          backgroundColor: Colors.lightGreen,
+                          textColor: Colors.white,
+                          fontSize: 14,);
+                        Map<String, dynamic> data = {"rebarpoints": newRebarPoints, "rebarmember": true, "points" : loggedInUser.points};
+                        FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
+                        showDoneDialog();
 
           });
         }}
       // if the result is anything else
       else{
-        Fluttertoast.showToast(msg: "Result : ${result!.code}. Please scan a valid code");
+        Fluttertoast.showToast(msg: "Result : ${result!.code}. Please scan a valid code",
+          toastLength: Toast.LENGTH_LONG,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14,);
       }
       controller!.dispose();
     }
@@ -179,7 +215,7 @@ class _EnterPointsState extends State<EnterPoints> with SingleTickerProviderStat
         key: qrKey,
         onQRViewCreated: _onQRViewCreated,
         overlay: QrScannerOverlayShape(
-          borderColor: Colors.orange,
+          borderColor: Colors.lightGreen,
           borderRadius: 10,
           borderLength: 30,
           borderWidth: 10,

@@ -85,32 +85,7 @@ class _TransferBrandState extends State<TransferBrand> with SingleTickerProvider
       body:Column(
           children: [
             Container(
-          color: Colors.black12,
-          height: 150,
-          width: 420,
-            child: RichText( text:  const TextSpan(
-
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.black,
-              fontFamily: 'Macondo',
-              fontWeight: FontWeight.bold,
-
-
-            ),
-            children: <TextSpan>[
-              TextSpan(text:'1)  Choose brands from the list.\n',),
-              TextSpan(text:'2)  Enter the amount of points you want to \n     transfer.\n'),
-              TextSpan(text: '3)  Press Transfer.\n'),
-              TextSpan(text: '4)  Enjoy :) ! '),
-
-
-            ],
-          ),
-
-            ),),
-            Container(
-                color: Colors.lightGreen,
+                color: Colors.black12,
                 height: 100,
                 width: 420,
                 child: RichText( text:  TextSpan(
@@ -119,20 +94,25 @@ class _TransferBrandState extends State<TransferBrand> with SingleTickerProvider
                     fontSize: 20.0,
 
 
+
                   ),
                   children: <TextSpan>[
-                    const TextSpan(text: 'You can Transfer:\n',),
+                    const TextSpan(text: 'You can Transfer:\n',style: const TextStyle(color: Colors.black54,)),
                     TextSpan(text: '${loggedInUser.zarapoints}',style: const TextStyle(color: Colors.deepPurpleAccent,fontWeight: FontWeight.bold,fontFamily: 'Macondo',  decoration: TextDecoration.underline,)),
-                    const TextSpan(text: ' Points from Zara.\n'),
+                    const TextSpan(text: ' Points from Zara.\n',style: const TextStyle(color: Colors.black54,)),
                     TextSpan(text: '${  loggedInUser.goldapoints}',style: const TextStyle(color: Colors.deepPurpleAccent,fontWeight: FontWeight.bold,fontFamily: 'Macondo',  decoration: TextDecoration.underline,)),
-                    const TextSpan(text: ' Points from Golda.\n'),
+                    const TextSpan(text: ' Points from Golda.\n',style: const TextStyle(color: Colors.black54,)),
                     TextSpan(text: '${  loggedInUser.rebarpoints}',style: const TextStyle(color: Colors.deepPurpleAccent,fontWeight: FontWeight.bold,fontFamily: 'Macondo',  decoration: TextDecoration.underline,)),
-                    const TextSpan(text: ' Points from Rebar .'),
+                    const TextSpan(text: ' Points from Rebar.',style: const TextStyle(color: Colors.black54,)),
 
 
                   ],
                 ),
                 )),
+
+      Container(
+        height: 5,
+      ),
 
             SizedBox(
               width: 250,
@@ -206,6 +186,7 @@ class _TransferBrandState extends State<TransferBrand> with SingleTickerProvider
               padding: const EdgeInsets.all(32),
               child:(
                   Material(
+                    
                     elevation: 5,
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.lightGreen,
@@ -217,79 +198,211 @@ class _TransferBrandState extends State<TransferBrand> with SingleTickerProvider
 
                         int points = int.parse(Points.text);
 
-                        // no brands selected
-                         if((selectedItem == 'Send From') || (selectedItem2 == 'Send to')){
-                          Fluttertoast.showToast(msg: "ERROR: Please select brand(s) from the list");
+
+                        //sending without having any points in wallet
+                         if(loggedInUser.points == 0){
+                        Fluttertoast.showToast(msg: "ERROR: You have no points in wallet\nScan points in order to transfer ",
+                        backgroundColor: Colors.red,
+                        toastLength: Toast.LENGTH_LONG,
+                        textColor: Colors.white,
+                        fontSize: 14,);
                         }
+
+                        // no brands selected
+                         else if((selectedItem == 'Send From') || (selectedItem2 == 'Send to')){
+                          Fluttertoast.showToast(msg: "ERROR: Please select brand(s) from the list",
+                            backgroundColor: Colors.red,
+                            toastLength: Toast.LENGTH_LONG,
+                            textColor: Colors.white,
+                            fontSize: 14,);
+                        }
+
+
                          //sending 0 points from any brand
                          else if(points == 0){
-                           Fluttertoast.showToast(msg: "ERROR: Can't send 0 points");
+                           Fluttertoast.showToast(msg: "ERROR: Can't send 0 points",
+                             backgroundColor: Colors.red,
+                             toastLength: Toast.LENGTH_LONG,
+                             textColor: Colors.white,
+                             fontSize: 14,);
                          }
                         //same brands selected
                           else if (selectedItem == selectedItem2) {
                             Fluttertoast.showToast(
-                                msg: "ERROR: Can't send to the same brand");
+                                msg: "ERROR: Can't send to the same brand!",
+                              backgroundColor: Colors.red,
+                              toastLength: Toast.LENGTH_LONG,
+                              textColor: Colors.white,
+                              fontSize: 14,
+
+                            );
                           }
                           //0 points from zara
                           else if (selectedItem == 'Zara' && loggedInUser.zarapoints == 0) {
                             Fluttertoast.showToast(
-                                msg: "ERROR: You cant send from Zara , you have 0 points");
+                                msg: "ERROR: You cant send points from Zara \nyou have 0 Zara points",
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              toastLength: Toast.LENGTH_LONG,
+                              fontSize: 14,);
                           }
+                         //sending to zara without membership
+                         else if (selectedItem2 == 'Zara' && loggedInUser.zarapoints == 0) {
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You cant send points to Zara \nyou have to be a member first",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         }
                           //0 points from golda
                           else if (selectedItem == 'Golda' && loggedInUser.goldapoints == 0) {
                             Fluttertoast.showToast(
-                                msg: "ERROR: You cant send from Golda , you have 0 points");
+                                msg: "ERROR: You cant send points from Golda \nyou have 0 Golda points",
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 14,);
                           }
+                          //sending to golda without membership
+                         else if (selectedItem2 == 'Golda' && loggedInUser.goldapoints == 0) {
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You cant send points to Golda \nyou have to be a member first",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         }
                           //0 points from rebar
                           else if (selectedItem == 'Rebar' && loggedInUser.rebarpoints == 0) {
                             Fluttertoast.showToast(
-                                msg: "ERROR: You cant send from Rebar , you have 0 points");
+                              msg: "ERROR: You cant send points from Rebar \nyou have 0 Rebar points",
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 14,);
                           }
+                         //sending to rebar without membership
+                         else if (selectedItem2 == 'Rebar' && loggedInUser.rebarpoints == 0) {
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You cant send points to Rebar \nyou have to be a member first",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         }
+                         // sending the last zara point
+                         else if ((selectedItem == 'Zara' && (loggedInUser.zarapoints == 1)) && points == 1 ){
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You only have 1 Zara point!\nyou cant send it!",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         }
+                         // sending the last golda  point
+                         else if (selectedItem == 'Golda' && (loggedInUser.goldapoints == 1)  && points == 1){
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You only have 1 Golda point!\nyou cant send it!",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         }
+                         // sending the last rebar  point
+                         else if (selectedItem == 'Rebar' && (loggedInUser.rebarpoints == 1)  && points == 1){
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You only have 1 Rebar point!\nyou cant send it!",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         }
+                         // sending all zara points to another brand
+                           else if (selectedItem == 'Zara' && (loggedInUser.zarapoints! - points == 0) ){
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You cant send all your Zara points to another brand !\nkeep at least one point",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         } // sending all golda points to another brand
+                         else if (selectedItem == 'Golda' && (loggedInUser.goldapoints! - points == 0) ){
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You cant send all your Golda points to another brand !\nkeep at least one point",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         }
+                         // sending all rebar points to another brand
+                         else if (selectedItem == 'Rebar' && (loggedInUser.rebarpoints! - points == 0) ){
+                           Fluttertoast.showToast(
+                             msg: "ERROR: You cant send all your Rebar points to another brand !\nkeep at least one point",
+                             backgroundColor: Colors.red,
+                             textColor: Colors.white,
+                             toastLength: Toast.LENGTH_LONG,
+                             fontSize: 14,);
+                         }
+
+
                           // zara to golda
-                          else if (selectedItem == 'Zara' && (loggedInUser.zarapoints! - points >= 0) && selectedItem2 == 'Golda') {
+                          else if (selectedItem == 'Zara' && (loggedInUser.zarapoints! - points > 0) && selectedItem2 == 'Golda') {
                            player.play('tada.mp3');
                            loggedInUser.zarapoints = loggedInUser.zarapoints! - points;
                             loggedInUser.goldapoints = loggedInUser.goldapoints! + points;
-                            Fluttertoast.showToast(msg: "Transfer Completed! , you have now ${loggedInUser.zarapoints} zara points and ${loggedInUser.goldapoints} golda points");
-                            Map<String, dynamic> data = {"zarapoints": loggedInUser.zarapoints, "goldapoints": loggedInUser.goldapoints};
+
+
+                            Fluttertoast.showToast(msg: "Transfer Completed!\nyou have now ${loggedInUser.zarapoints} zara points and ${loggedInUser.goldapoints} golda points",
+                              backgroundColor: Colors.lightGreen,
+                              textColor: Colors.white,
+                              toastLength: Toast.LENGTH_LONG,
+                              fontSize: 14,);
+                            Map<String, dynamic> data = {"zarapoints": loggedInUser.zarapoints, "goldapoints": loggedInUser.goldapoints };
                             FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
                             showDoneDialog();
 
                          }
                           // zara to rebar
-                          else if (selectedItem == 'Zara' && (loggedInUser.zarapoints! - points >= 0) && selectedItem2 == 'Rebar') {
+                          else if (selectedItem == 'Zara' && (loggedInUser.zarapoints! - points > 0) && selectedItem2 == 'Rebar') {
                            player.play('tada.mp3');
                            loggedInUser.zarapoints =
                                 loggedInUser.zarapoints! - points;
                             loggedInUser.rebarpoints =
                                 loggedInUser.rebarpoints! + points;
+
                             Fluttertoast.showToast(
-                                msg: "Transfer Completed! , you have now ${loggedInUser
+                                msg: "Transfer Completed!\nyou have now ${loggedInUser
                                     .zarapoints} zara points and ${loggedInUser
-                                    .rebarpoints} rebar points");
-                            Map<String, dynamic> data = {
-                              "zarapoints": loggedInUser.zarapoints,
-                              "rebarpoints": loggedInUser.rebarpoints
-                            };
+                                    .rebarpoints} rebar points",
+                              backgroundColor: Colors.lightGreen,
+                              toastLength: Toast.LENGTH_LONG,
+                              textColor: Colors.white,
+                              fontSize: 14,);
+                            Map<String, dynamic> data = {"zarapoints": loggedInUser.zarapoints, "rebarpoints": loggedInUser.rebarpoints,};
                             FirebaseFirestore.instance.collection("users").doc(
                                 user?.uid).update(data);
                             showDoneDialog();
 
                          }
                           //golda to zara
-                          else if (selectedItem == 'Golda' && (loggedInUser.goldapoints! - points >= 0) && selectedItem2 == 'Zara') {
+                          else if (selectedItem == 'Golda' && (loggedInUser.goldapoints! - points > 0) && selectedItem2 == 'Zara') {
                            player.play('tada.mp3');
                            loggedInUser.goldapoints =
                                 loggedInUser.goldapoints! - points;
                             loggedInUser.zarapoints =
                                 loggedInUser.zarapoints! + points;
+
+
                             Fluttertoast.showToast(
                                 msg: "Transfer Completed! , you have now ${loggedInUser
                                     .goldapoints} golda points and ${loggedInUser
-                                    .zarapoints} zara points");
+                                    .zarapoints} zara points",
+                              backgroundColor: Colors.lightGreen,
+                              toastLength: Toast.LENGTH_LONG,
+                              textColor: Colors.white,
+                              fontSize: 14,);
                             Map<String, dynamic> data = {
                               "goldapoints": loggedInUser.goldapoints,
-                              "zarapoints": loggedInUser.zarapoints
+                              "zarapoints": loggedInUser.zarapoints,
                             };
                             FirebaseFirestore.instance.collection("users").doc(
                                 user?.uid).update(data);
@@ -297,19 +410,25 @@ class _TransferBrandState extends State<TransferBrand> with SingleTickerProvider
 
                          }
                           //golda to rebar
-                          else if (selectedItem == 'Golda' && (loggedInUser.goldapoints! - points >= 0) && selectedItem2 == 'Rebar') {
+                          else if (selectedItem == 'Golda' && (loggedInUser.goldapoints! - points > 0) && selectedItem2 == 'Rebar') {
                            player.play('tada.mp3');
                            loggedInUser.goldapoints =
                                 loggedInUser.goldapoints! - points;
                             loggedInUser.rebarpoints =
                                 loggedInUser.rebarpoints! + points;
-                            Fluttertoast.showToast(
-                                msg: "Transfer Completed! , you have now ${loggedInUser
+
+                           Fluttertoast.showToast(
+
+                              msg: "Transfer Completed!\nyou have now ${loggedInUser
                                     .goldapoints} golda points and ${loggedInUser
-                                    .rebarpoints} rebar points");
+                                    .rebarpoints} rebar points",
+                              backgroundColor: Colors.lightGreen,
+                              textColor: Colors.white,
+                              toastLength: Toast.LENGTH_LONG,
+                              fontSize: 14,);
                             Map<String, dynamic> data = {
                               "goldapoints": loggedInUser.goldapoints,
-                              "rebarpoints": loggedInUser.rebarpoints
+                              "rebarpoints": loggedInUser.rebarpoints,
                             };
                             FirebaseFirestore.instance.collection("users").doc(
                                 user?.uid).update(data);
@@ -317,19 +436,25 @@ class _TransferBrandState extends State<TransferBrand> with SingleTickerProvider
 
                          }
                           //rebar to zara
-                          else if (selectedItem == 'Rebar' && (loggedInUser.rebarpoints! - points >= 0) && selectedItem2 == 'Zara') {
+                          else if (selectedItem == 'Rebar' && (loggedInUser.rebarpoints! - points > 0) && selectedItem2 == 'Zara') {
                            player.play('tada.mp3');
                            loggedInUser.rebarpoints =
                                 loggedInUser.rebarpoints! - points;
                             loggedInUser.zarapoints =
                                 loggedInUser.zarapoints! + points;
+
                             Fluttertoast.showToast(
-                                msg: "Transfer Completed! , you have now ${loggedInUser
+                                msg: "Transfer Completed!\nyou have now ${loggedInUser
                                     .rebarpoints} rebar points and ${loggedInUser
-                                    .zarapoints} zara points");
+                                    .zarapoints} zara points",
+                              backgroundColor: Colors.lightGreen,
+                              textColor: Colors.white,
+                              toastLength: Toast.LENGTH_LONG,
+                              fontSize: 14,);
                             Map<String, dynamic> data = {
                               "rebarpoints": loggedInUser.rebarpoints,
-                              "zarapoints": loggedInUser.zarapoints
+                              "zarapoints": loggedInUser.zarapoints,
+
                             };
                             FirebaseFirestore.instance.collection("users").doc(
                                 user?.uid).update(data);
@@ -343,13 +468,18 @@ class _TransferBrandState extends State<TransferBrand> with SingleTickerProvider
                                 .rebarpoints! - points;
                             loggedInUser.goldapoints = loggedInUser
                                 .goldapoints! + points;
+
                             Fluttertoast.showToast(
-                                msg: "Transfer Completed! , you have now ${loggedInUser
+                                msg: "Transfer Completed! \n you have now ${loggedInUser
                                     .rebarpoints} rebar points and ${loggedInUser
-                                    .goldapoints} golda points");
+                                    .goldapoints} golda points",
+                              toastLength: Toast.LENGTH_LONG,
+                              backgroundColor: Colors.lightGreen,
+                              textColor: Colors.white,
+                              fontSize: 14,);
                             Map<String, dynamic> data = {
                               "rebarpoints": loggedInUser.rebarpoints,
-                              "goldapoints": loggedInUser.goldapoints
+                              "goldapoints": loggedInUser.goldapoints,
                             };
                             FirebaseFirestore.instance.collection("users").doc(
                                 user?.uid).update(data);
@@ -357,19 +487,29 @@ class _TransferBrandState extends State<TransferBrand> with SingleTickerProvider
 
                          }
 
-                          //if sending more than allowed from zara
+                          //if sending more than allowed
                             else{
                           Fluttertoast.showToast(
-                              msg: "Insufficient points!!, You're sending more than you have!");
+                              msg: "Error: Insufficient points!\n You're sending more than you have!",
+                            toastLength: Toast.LENGTH_LONG,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 14,);
                         }
                       },
                       child: const Text('Transfer',textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.bold),),
+                        style: TextStyle(fontSize: 30, color: Colors.white,fontWeight: FontWeight.bold,fontFamily:'Macondo',letterSpacing: 10 ),),
                     ),
                   )
               ),
 
             ),
+
+            Container(
+              color: Colors.black12,
+              height: 170,
+              width: 470,
+              child: Lottie.network('https://assets8.lottiefiles.com/packages/lf20_2KHZQg.json',  ) ,),
 
 
             ]),

@@ -40,17 +40,7 @@ class _MyWalletState extends State<MyWallet> {
 
   @override
   Widget build(BuildContext context) {
-    if((loggedInUser.zarapoints != null) && (loggedInUser.goldapoints != null) && ( loggedInUser.goldapoints != null )){
-      if(true){
-        loggedInUser.points = loggedInUser.zarapoints! +  loggedInUser.rebarpoints! + loggedInUser.goldapoints!;
-        Map<String, dynamic> data = {"points": loggedInUser.points};
-        FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);}
-    }
-    else{
-      loggedInUser.points = loggedInUser.zarapoints! + loggedInUser.rebarpoints! + loggedInUser.goldapoints!;
-      Map<String, dynamic> data = {"points": loggedInUser.points};
-      FirebaseFirestore.instance.collection("users").doc(user?.uid).update(data);
-    }
+
 
 
 
@@ -72,21 +62,28 @@ class _MyWalletState extends State<MyWallet> {
       Container(
       color: Colors.black12,
       height: 80.0,
+      width: 450,
 
-      child: const Text(" Your wallet is how much points you've collected so far. ", style: TextStyle(
-          fontSize: 18.0,
-          fontFamily: 'NotoSerif',
-          fontWeight: FontWeight.bold,
-          letterSpacing: 2.0,
+      child: RichText( text:  const TextSpan(
+
+        style: TextStyle(
+
 
         ),
+        children: <TextSpan>[
+          TextSpan(text: '  Our app works with QR scanning\n',style: TextStyle(color: Colors.black,fontSize:24,fontWeight: FontWeight.bold ,fontFamily: 'Macondo',letterSpacing: 1)),
+          TextSpan(text: ' Just point your camera at one of our generated QR\n                          codes to earn points!',style: TextStyle(color: Colors.black,fontSize: 18)),
+
+
+        ],
       ),
+      )
     ),
      Container(
 
        color: Colors.lightGreen,
        height: 100,
-        width: 420,
+        width: 430,
         child: RichText( text:  TextSpan(
 
           style: const TextStyle(
@@ -115,12 +112,11 @@ class _MyWalletState extends State<MyWallet> {
       Container(
         color: Colors.black12,
         height: 100,
-        child: const Text("To scan points , click on the menu button at the bottom and click on Enter New Points. ",
+        child: const Text("To scan points , click the menu button and click on Enter New Points.\n", textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 18.0,
-            fontFamily: 'NotoSerif',
+            fontSize: 25.0,
+            fontFamily: 'Macondo',
             fontWeight: FontWeight.bold,
-            letterSpacing: 2.0,
 
           ),
 
@@ -128,7 +124,7 @@ class _MyWalletState extends State<MyWallet> {
       Container(
         height: 300,
 
-        child:Lottie.asset('assets/scan.json',reverse: true),
+        child:Lottie.network('https://assets3.lottiefiles.com/private_files/lf30_le9o8vmt.json',reverse: true),
 
 
       )

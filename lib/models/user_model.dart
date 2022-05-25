@@ -1,4 +1,3 @@
-
 class UserModel{
   String? uid;
   String? email;
@@ -32,7 +31,7 @@ class UserModel{
         goldamember: map['goldamember'],
         rebarmember: map['rebarmember'],
         zaramember: map['zaramember'],
-        points: map['points']
+        points: map['points'],
     );
   }
 
@@ -54,5 +53,13 @@ Map<String, dynamic> toMap(){
       'points' : points,
     };
 }
+static UserModel fromJson(Map<String, dynamic> json) => UserModel(
+  firstName: json['firstName'],
+  secondName: json['secondName'],
+  zarapoints: json['zarapoints'],
+  goldapoints: json['goldapoints'],
+  rebarpoints: json['rebarpoints'],
+  points: json['points'],
+);
 
 }
